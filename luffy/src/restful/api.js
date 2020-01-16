@@ -3,7 +3,18 @@ import Axios from 'axios'
 //挂载axios
 // Vue.prototype.$http=Axios;
 Axios.defaults.baseURL='http://127.0.0.1:8888/'
-
+Axios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+    if (localStorage.getItem('token')) {
+    	// Axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token');
+    	console.log(config.headers);
+    	config.headers.Authorization = localStorage.getItem('token')
+    }
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  });
 //分类列表API
 export const categoryList=()=> {
 	// body...
@@ -46,4 +57,8 @@ export const userRegister=(params)=>{
 	return Axios.post('api/register/',params).then((res)=>{
 		return res.data
 	})
+}
+//加入购物车
+export const shopCart=(params)=>{
+	return Axios.post('api/shop/shopping_car/',params).then(res=>res.data)
 }

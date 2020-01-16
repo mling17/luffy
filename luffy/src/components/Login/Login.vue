@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <img src="http://pic.netbian.com/uploads/allimg/180826/113958-153525479855be.jpg" alt="">
+        <img src="../../../static/images/113958-153525479855be.jpg" alt="">
         <div class="login">
             <div class="login-title">
                 <img src="https://hcdn1.luffycity.com/static/frontend/activity/head-logo_1564141048.3435316.svg" alt="">
@@ -61,11 +61,8 @@ export default {
                 name:'Home'
             })
             localStorage.setItem('token',res.data)
-            console.log('1111111111111111')
-            console.log(this)
-            console.log(this.$store)
-            this.$store.dispatch('getUserInfo',res)
-            console.log(this.$store.state)
+            console.log(res.data)
+            this.$store.dispatch('getUserInfo',res.data)
 
             }else{
                 this.$message(res.error)

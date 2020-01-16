@@ -8,6 +8,7 @@ import Home from '@/components/Home/Home'
 import CourseDetail from '@/components/Course/CourseDetail'
 import Login from '@/components/Login/Login'
 import Regist from '@/components/Login/Regist'
+import Carte from '@/Carte/Carte'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
       path: '/regist',
       name: 'Regist',
       component: Regist
+    },
+    {
+      path:'/purchase/shopping_cart',
+      name:'purchase.shop',
+      component:Carte
     },
   ]
 })

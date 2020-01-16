@@ -75,16 +75,27 @@ export default {
 		 AllCourseDetail:{},
 		 currentIndex:null,
 		 currenChildtIndex:0,
-
+		 
 		}
 	},
 	methods:{
 		//加入购物车
 		addShopCart(){
-			if(this.currentIndex){
+			if(this.currentIndex != null){
 				//用户要买东西了
 				if(window.localStorage.getItem('token')){
-						console.log('已经登陆了')
+						let course={
+							course_id:1,
+							price_policy_id:1
+						}
+						this.$http.shopCart(course)
+						.then(res=>{
+							console.log(res)
+						})
+						.catch(err=>{
+							console.log(err)
+						})
+
 				}else{
 					//跳转登陆页面
 					//使用编程式导航来跳转

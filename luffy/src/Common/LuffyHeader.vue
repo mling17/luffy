@@ -14,13 +14,13 @@
                   		</li>
                   	</ul>
                 </div>
-                
+                  
                 <!-- <el-dropdown> -->
-                <div class="nav-right" >
+                <div class="nav-right" @mouseenter='enterHandler' @mouseleave='leaveHandler' v-if='userInfo'>
                   <span class = 'el-dropdown-link'>学习中心</span>
-                 	<span class="user">老村长</span>
-                 	<img src="" alt="">
-                  <ul class="my_account">
+                 	<span class="user">菜单</span>
+                 	<!-- <img src="" alt=""> -->
+                  <ul class="my_account" v-show='isShow'>
                       <li>
                         我的账户
                         <i>></i>
@@ -34,11 +34,11 @@
                         <i>></i>
                       </li>
                       <li>
-                        我的消息<span class="msg">(44)</span>
+                        我的消息<span class="msg"></span>
                         <i>></i>
                       </li>
-                      <li>
-                       购物车<span class="count">(1)</span>
+                      <li @click='shopCartInfo'>
+                       购物车<span class="count"></span>
                         <i>></i>
                       </li>
                       <li>
@@ -48,7 +48,7 @@
                   </ul>
                 </div>
               <!-- </el-dropdown> -->
-                <div class="nav-right">
+                <div class="nav-right" v-else>
                   <span @click='loginHandler'>登录</span>
                   &nbsp;| &nbsp;
                   <span @click='resgistHandler'>注册</span>
@@ -72,10 +72,16 @@ export default {
       {id:2,name:'Course',title:'免费课程'},
       {id:3,name:'LightCourse',title:'轻课'},
       {id:4,name:'Micro',title:'学位课程'}
-      ]
+      ],
+      isShow:false
     }
   },
   methods:{
+    shopCartInfo(){
+      this.$router.push({
+        name:'purchase.shop'
+      })
+    },
     resgistHandler(){
         this.$router.push({
             name:'Regist'
@@ -85,11 +91,17 @@ export default {
         this.$router.push({
             name:'Login'
         })
-     }
+     },
+     enterHandler(){
+      this.isShow=true;
+     },
+     leaveHandler(){
+      this.isShow=false
+     },
  },
  computed:{
   userInfo(){
-    console.log('---------->',this.$store)
+    console.log('userInfo-------->',this.$store.state.userInfo)
     return this.$store.state.userInfo
   }
  }
