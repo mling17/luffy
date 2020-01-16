@@ -54,13 +54,22 @@ export default {
         }
         this.$http.userLogin(params)
         .then(res=>{
-            console.log(res)
+            // console.log(res)
             //用户登陆
+            if (res.code===0){
             this.$router.push({
                 name:'Home'
             })
+            localStorage.setItem('token',res.data)
+            console.log('1111111111111111')
+            console.log(this)
+            console.log(this.$store)
+            this.$store.dispatch('getUserInfo',res)
+            console.log(this.$store.state)
 
-
+            }else{
+                this.$message(res.error)
+            }
         })
         .catch(err=>{
             console.log(err)

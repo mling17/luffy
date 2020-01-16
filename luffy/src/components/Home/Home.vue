@@ -33,6 +33,11 @@ export default {
       ]
     };
   },
+  created(){
+  	// console.log(localStorage)
+    console.log('9999999999',this)
+    console.log('9999999999',this.$router)
+  }
 };
 </script>
 

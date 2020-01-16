@@ -16,8 +16,7 @@
                 </div>
                 
                 <!-- <el-dropdown> -->
-
-                <!-- <div class="nav-right ">
+                <div class="nav-right" >
                   <span class = 'el-dropdown-link'>学习中心</span>
                  	<span class="user">老村长</span>
                  	<img src="" alt="">
@@ -47,7 +46,7 @@
                         <i>></i>
                       </li>
                   </ul>
-                </div> -->
+                </div>
               <!-- </el-dropdown> -->
                 <div class="nav-right">
                   <span @click='loginHandler'>登录</span>
@@ -87,6 +86,12 @@ export default {
             name:'Login'
         })
      }
+ },
+ computed:{
+  userInfo(){
+    console.log('---------->',this.$store)
+    return this.$store.state.userInfo
+  }
  }
 };
 </script>
