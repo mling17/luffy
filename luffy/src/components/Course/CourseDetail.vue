@@ -90,7 +90,7 @@ export default {
 						}
 						this.$http.shopCart(course)
 						.then(res=>{
-							console.log(res)
+							console.log('添加购物车后',res)
 						})
 						.catch(err=>{
 							console.log(err)
