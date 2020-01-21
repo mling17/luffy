@@ -1,28 +1,12 @@
 //导入axios
 import Axios from 'axios'
 //挂载axios
-// Vue.prototype.$http=Axios;
 Axios.defaults.baseURL='http://127.0.0.1:8888/'
-// Axios.defaults.headers.common["AUTHORIZATION"] = localStorage.getItem('token');
 Axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     if (localStorage.getItem('token')) {
     	// Axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token');
-    	console.log('头部-------->',config.headers);
-    	console.log(localStorage.getItem('token'));
     	config.headers.AUTHORIZATION = localStorage.getItem('token')
-    }
-    return config;
-  }, function (error) {
-    // 对请求错误做些什么
-    return Promise.reject(error);
-  });
-Axios.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
-    if (localStorage.getItem('token')) {
-    	// Axios.defaults.headers.common['Authorization'] = localStorage.getItem('access_token');
-    	console.log('头部--------',config.headers);
-    	config.headers.Authorization = localStorage.getItem('token')
     }
     return config;
   }, function (error) {
@@ -78,6 +62,6 @@ export const shopCart=(params)=>{
 }
 
 //购物车数据
-export const shopCartList=(params)=>{
-	return Axios.get('api/shop/shopping_car/',params).then(res=>res.data)
+export const shopCartList=()=>{
+	return Axios.get('api/shop/shopping_car/').then(res=>res.data)
 }

@@ -22,7 +22,6 @@ router.beforeEach((to, from, next) => {
 if (localStorage.getItem('token')) {
 	// 用户登录过
 	let token =localStorage.getItem('token');
-	console.log('7777777777777',token)
 	store.dispatch('getUserInfo',token);
 }
   // ...

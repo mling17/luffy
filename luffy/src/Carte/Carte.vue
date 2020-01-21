@@ -3,42 +3,87 @@
 		<h3 class="shopping-cart-tit">我的购物车<small>共1门课程</small></h3>
 		<div class="row">
 			<el-table
-    ref="multipleTable"
-    :data="tableData"
-    tooltip-effect="dark"
-    style="width: 100%"
-    @selection-change="handleSelectionChange">
-    <el-table-column
-      type="selection"
-      width="55">
-    </el-table-column>
-    <el-table-column
-      label="日期"
-      width="120">
-      <template slot-scope="scope">{{ scope.row.date }}</template>
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址"
-      show-overflow-tooltip>
-    </el-table-column>
-  </el-table>
+			    ref="multipleTable"
+			    :data="shopCartList"
+			    tooltip-effect="dark"
+			    style="width: 100%"
+			    @selection-change="handleSelectionChange">
+			    <el-table-column
+			      type="selection"
+			      width="55">
+			    </el-table-column>
+			    <el-table-column
+			      label="课程"
+			      width="555">
+			      <template slot-scope="scope">
+			      	<img :src='scope.row.course_img'>
+			      <a href="javascript:void(0);">{{ scope.row.title }}</a>
+			  	  </template>
+			    </el-table-column>
+			    <el-table-column
+			      prop="name"
+			      label="有效期"
+			      width="212">
+			      <template slot-scope="scope">
+			      	<select>
+			      		<option v-for='(item,index) in scope.row.price_policy_dict' :value='item'>
+			      			有效期{{item}}
+			      		</option>
+			      	</select>
+			  	  </template>
+			    </el-table-column>
+			    <el-table-column
+			      prop="address"
+			      label="单价"
+			      show-overflow-tooltip>
+			      <template slot-scope="scope">
+			      <b href="javascript:void(0);">{{ price }}元</b>
+			  	  </template>
+			    </el-table-column>
+  	</el-table>
 		</div>
 		<div class="total">
 			<el-button type="primary">去结算</el-button>
-			<h3>总计: ¥399</h3>	
+			<h3>{{price}}</h3>	
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
+	name:'Cart',
+	data(){
+		return{
+			multipleSelection:[],//存放选中的当前数据
+			shopCartList:[],
+			price:null
+		}
+	},
+	methods:{
+		getShopCartList(){
+			console.log('发送购物车请求啦')
+			this.$http.shopCartList()
+			.then(res=>{
+				this.shopCartList=res;
+				res.forEach((item,index)=>{
+					var price_policy_id=item.default_price_policy_id
+					this.price=JSON.parse(item.price_policy_dict)[price_policy_id].price
+					console.log('--->',this.price)
+				})
 
+			})
+			.catch(err=>{
+				console.log(err)
+			})
+		},
+		handleSelectionChange(val){
+			this.multipleSelection=val;
+		}
+	},
+	created(){
+		console.log('购物车页面created')
+		this.getShopCartList();
+	}
 };
 </script>
 

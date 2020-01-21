@@ -91,6 +91,13 @@ export default {
 						this.$http.shopCart(course)
 						.then(res=>{
 							console.log('添加购物车后',res)
+							if(res.code===0){
+								this.$message(res.data)
+							}
+							if (res.code===10){
+								this.$message(res.data)
+							}
+							
 						})
 						.catch(err=>{
 							console.log(err)
